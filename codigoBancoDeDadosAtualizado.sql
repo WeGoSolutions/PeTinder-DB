@@ -1,5 +1,5 @@
-create database WeGo;
-use WeGo;
+create DATABASE WeGo;
+USE WeGo;
 
 -- Tabela: endereco
 CREATE TABLE endereco (
@@ -14,7 +14,7 @@ CREATE TABLE endereco (
 
 -- Tabela: imagem_ong
 CREATE TABLE imagem_ong (
-  id INT NOT NULL PRIMARY KEY auto_increment,
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   link VARCHAR(255)
 );
 
@@ -34,11 +34,11 @@ CREATE TABLE ong (
   razao_social VARCHAR(100),
   senha VARCHAR(255),
   email VARCHAR(100),
-  fkImagemOng INT,
-  fkEndereco INT,
+  fk_imagem_ong INT,
+  fk_endereco INT,
   link VARCHAR(255),
-  FOREIGN KEY (fkEndereco) REFERENCES endereco(id),
-  foreign key (fkImagemOng) REFERENCES imagem_ong(id)
+  FOREIGN KEY (fk_endereco) REFERENCES endereco(id),
+  FOREIGN KEY (fk_imagem_ong) REFERENCES imagem_ong(id)
 );
 
 -- Tabela: usuario
@@ -48,12 +48,12 @@ CREATE TABLE usuario (
   cpf VARCHAR(255),
   email VARCHAR(255) UNIQUE,
   senha VARCHAR(255),
-  dataNasc DATE,
-  userNovo BIT(1),
-  fkImagemUsuario INT,
-  fkEndereco INT,
-  FOREIGN KEY (fkImagemUsuario) REFERENCES imagem_usuario(id),
-  FOREIGN KEY (fkEndereco) REFERENCES endereco(id)
+  data_nasc DATE,
+  user_novo BIT(1),
+  fk_imagem_usuario INT,
+  fk_endereco INT,
+  FOREIGN KEY (fk_imagem_usuario) REFERENCES imagem_usuario(id),
+  FOREIGN KEY (fk_endereco) REFERENCES endereco(id)
 );
 
 -- Tabela: pet
@@ -62,62 +62,61 @@ CREATE TABLE pet (
   nome VARCHAR(255),
   porte VARCHAR(255),
   idade DOUBLE,
-  isAdopted TINYINT,
-  isVacinado TINYINT,
-  isVermifugo TINYINT,
-  isCastrado TINYINT,
+  is_adopted TINYINT,
+  is_vacinado TINYINT,
+  is_vermifugo TINYINT,
+  is_castrado TINYINT,
   descricao LONGTEXT,
   curtidas INT,
   sexo VARCHAR(45),
-  fkOng INT,
-  FOREIGN KEY (fkOng) REFERENCES ong(id)
+  fk_ong INT,
+  FOREIGN KEY (fk_ong) REFERENCES ong(id)
 );
 
--- Tabela: statusPet
+-- Tabela: pet_status
 CREATE TABLE pet_status (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   status ENUM('ADOPTED', 'LIKED', 'PENDING'),
-  fkUsuario INT,
-  fkPet INT,
+  fk_usuario INT,
+  fk_pet INT,
   alterado_para_pending DATETIME,
-  FOREIGN KEY (fkUsuario) REFERENCES usuario(id),
-  FOREIGN KEY (fkPet) REFERENCES pet(id)
+  FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
+  FOREIGN KEY (fk_pet) REFERENCES pet(id)
 );
-
 
 -- Tabela: dashboard
 CREATE TABLE dashboard (
   id INT NOT NULL,
-  fkOng INT NOT NULL,
-  PRIMARY KEY (id, fkOng),
-  FOREIGN KEY (fkOng) REFERENCES ong(id)
+  fk_ong INT NOT NULL,
+  PRIMARY KEY (id, fk_ong),
+  FOREIGN KEY (fk_ong) REFERENCES ong(id)
 );
 
 -- Tabela: imagem_pet
 CREATE TABLE imagem_pet (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   link VARCHAR(255),
-  fkPet INT,
-  FOREIGN KEY (fkPet) REFERENCES pet(id)
+  fk_pet INT,
+  FOREIGN KEY (fk_pet) REFERENCES pet(id)
 );
 
+-- Tabela: pet_tags
 CREATE TABLE pet_tags (
   pet_id INT NOT NULL,
   tag VARCHAR(255),
   FOREIGN KEY (pet_id) REFERENCES pet(id)
 );
 
-
-
-show tables;
-select * from usuario;
-desc usuario;
-select * from imagem_usuario;
-select * from pet;
-select * from imagem_pet;
-select * from pet_status;
-select * from ong;
-select * from imagem_ong;
-select * from endereco;
-select * from dashboard;
-show tables;
+-- Comandos de teste
+SHOW TABLES;
+SELECT * FROM usuario;
+DESC usuario;
+SELECT * FROM imagem_usuario;
+SELECT * FROM pet;
+SELECT * FROM imagem_pet;
+SELECT * FROM pet_status;
+SELECT * FROM ong;
+SELECT * FROM imagem_ong;
+SELECT * FROM endereco;	
+SELECT * FROM dashboard;
+SHOW TABLES;
