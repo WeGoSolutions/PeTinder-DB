@@ -15,7 +15,8 @@ CREATE TABLE endereco (
 -- Tabela: imagem_ong
 CREATE TABLE imagem_ong (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  link VARCHAR(255)
+  arquivo VARCHAR(255),
+  dados LONGBLOB
 );
 
 -- Tabela: imagem_usuario
