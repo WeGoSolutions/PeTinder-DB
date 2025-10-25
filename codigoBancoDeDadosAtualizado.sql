@@ -98,6 +98,7 @@ CREATE TABLE imagem_pet (
   id BINARY(16) NOT NULL PRIMARY KEY,
   link VARCHAR(255),
   fk_pet BINARY(16),
+  key_s3 VARCHAR(255),
   FOREIGN KEY (fk_pet) REFERENCES pet(id)
 );
 
